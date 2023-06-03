@@ -62,7 +62,7 @@ export default function Login() {
           disabled={disable}
           required
         ></input>
-        <Button type="submit" disabled={disable}>
+        <button type="submit" disabled={disable}>
           {disable ? (
             <ThreeDots
               height="80"
@@ -77,7 +77,7 @@ export default function Login() {
           ) : (
             "Entrar"
           )}
-        </Button>
+        </button>
       </form>
       <Link to={`/cadastro`}>
         <Cadastro>Não tem uma conta? Cadastre-se!</Cadastro>

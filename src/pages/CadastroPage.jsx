@@ -77,7 +77,7 @@ export default function PaginaCadastro() {
           onChange={(e) => setImage(e.target.value)}
         ></input>
 
-        <Botao data-test="signup-btn" type="submit" disabled={disable}>
+        <button data-test="signup-btn" type="submit" disabled={disable}>
           {disable ? (
             <ThreeDots
               height="13"
@@ -90,7 +90,7 @@ export default function PaginaCadastro() {
           ) : (
             "Cadastrar"
           )}
-        </Botao>
+        </button>
 
         <Link to={"/"}>
           <Cadastro data-test="login-link">
@@ -120,22 +120,6 @@ const PageContainer = styled.div`
 const Formulario = styled.form`
   display: flex;
   flex-direction: column;
-`;
-
-const Botao = styled.button`
-  width: 300px;
-  height: 45px;
-  background: #52b6ff;
-  border-radius: 5px;
-  border: none;
-  margin: 3px;
-  color: white;
-  font-weight: 400;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: ${(props) => (props.disabled ? "0.7" : "1")};
 `;
 
 const Cadastro = styled.p`
