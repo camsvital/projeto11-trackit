@@ -25,7 +25,7 @@ export default function Login() {
         console.log(resposta.data);
         const usuario = { ...resposta.data };
         setUsuario(usuario);
-        navigate("/")
+        navigate("/");
       });
 
       promise.catch((erro) => {
@@ -45,6 +45,7 @@ export default function Login() {
       </Logo>
       <form>
         <input
+          data-test="email-input"
           type="email"
           placeholder="email"
           id="email"
@@ -54,6 +55,7 @@ export default function Login() {
           required
         ></input>
         <input
+          data-test="password-input"
           type="password"
           id="password"
           placeholder="senha"
@@ -62,7 +64,7 @@ export default function Login() {
           disabled={disable}
           required
         ></input>
-        <button type="submit" disabled={disable}>
+        <button data-test="login-btn"t ype="submit" disabled={disable}>
           {disable ? (
             <ThreeDots
               height="80"
