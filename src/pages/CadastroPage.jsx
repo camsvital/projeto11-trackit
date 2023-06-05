@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import logo from "../assets/img/logo.svg";
-import ThreeDots from "react-three-dots";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function PaginaCadastro() {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function PaginaCadastro() {
     if (email && name && image && password) {
       setDisable(true);
       e.preventDefault();
-      const objeto = { email, name, image, password };
+      const objeto = { email: email, name: name, image: image, password:password };
       console.log(objeto);
       const url =
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
@@ -39,8 +39,11 @@ export default function PaginaCadastro() {
 
   return (
     <PageContainer>
-      <img src={logo}></img>
-      <Formulario onSubmit={cadastrar}>
+      <Link to={"/"}>
+        <img src={logo}></img>
+      </Link>
+
+      <form onSubmit={cadastrar}>
         <input
           data-test="email-input"
           placeholder="email"
@@ -97,7 +100,7 @@ export default function PaginaCadastro() {
             Já tem uma conta? Faça o login!
           </Cadastro>
         </Link>
-      </Formulario>
+      </form>
     </PageContainer>
   );
 }
@@ -115,11 +118,6 @@ const PageContainer = styled.div`
     width: 180px;
     margin: 32px;
   }
-`;
-
-const Formulario = styled.form`
-  display: flex;
-  flex-direction: column;
 `;
 
 const Cadastro = styled.p`

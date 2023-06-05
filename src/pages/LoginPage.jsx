@@ -1,30 +1,30 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ThreeDots from "react-three-dots";
+import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 import axios from "axios";
 import logo from "../assets/img/logo.svg";
-import UsuarioContext from "../context/usuarioContext";
+import context from "../context/Context";
 
 export default function Login() {
+  const { usuario, setUsuario } = useContext(context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(false);
-  const { usuario, setUsuario } = useContext(UsuarioContext);
   const navigate = useNavigate();
 
   function entrar(e) {
     e.preventDefault();
     if (email && password) {
       setDisable(true);
-      const obj = { email, password };
+      const obj = { email: email, password: password };
       const url =
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
       const promise = axios.post(url, obj);
       promise.then((resposta) => {
         console.log(resposta.data);
-        const usuario = { ...resposta.data };
-        setUsuario(usuario);
+        const user = { ...resposta.data };
+        setUsuario(user);
         navigate("/");
       });
 
@@ -40,19 +40,16 @@ export default function Login() {
 
   return (
     <PageContainer>
-      <Logo>
-        <img src={logo} alt="logo" />
-      </Logo>
-      <form>
+      <img src={logo} alt="logo" />
+      <form onSubmit={entrar}>
         <input
           data-test="email-input"
           type="email"
-          placeholder="email"
           id="email"
+          placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={disable}
-          required
         ></input>
         <input
           data-test="password-input"
@@ -62,9 +59,8 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={disable}
-          required
         ></input>
-        <button data-test="login-btn"t ype="submit" disabled={disable}>
+        <button data-test="login-btn" type="submit" disabled={disable}>
           {disable ? (
             <ThreeDots
               height="80"
@@ -82,7 +78,9 @@ export default function Login() {
         </button>
       </form>
       <Link to={`/cadastro`}>
-        <Cadastro>Não tem uma conta? Cadastre-se!</Cadastro>
+        <Cadastro data-test="signup-link">
+          Não tem uma conta? Cadastre-se!
+        </Cadastro>
       </Link>
     </PageContainer>
   );
@@ -92,24 +90,9 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   height: 100vh;
-
-  padding-top: 35px;
-`;
-
-const Logo = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Button = styled.button`
-  width: 300px;
-  height: 45px;
-  border-radius: 5px;
-  border: none;
-  margin: 3px;
-  opacity: ${(props) => (props.disabled ? "0.7" : "1")};
+  gap: 30px;
+  padding-top: 60px;
 `;
 
 const Cadastro = styled.p`
